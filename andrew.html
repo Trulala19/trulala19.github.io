@@ -41,10 +41,11 @@
       color: #888;
       font-size: 14px;
     }
-  .menu {
-  position: relative;
-  text-align: center;
-  padding: 15px;
+ .menu {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1000;
 }
 
 .menu-btn {
@@ -56,20 +57,24 @@
   cursor: pointer;
 }
 
-.menu-btn:hover {
-  background-color: #222;
+.menu-btn {
+  background: none;
+  border: 1px solid #555;
+  color: #fff;
+  font-size: 15px;
+  padding: 6px 12px;
+  cursor: pointer;
 }
 
 .menu-dropdown {
   display: none;
   position: absolute;
-  top: 55px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 45px;
+  left: 0;
   background-color: #000;
   border: 1px solid #333;
   min-width: 160px;
-  z-index: 100;
+  z-index: 1001;
 }
 
 .menu-dropdown a {
