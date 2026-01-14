@@ -119,6 +119,16 @@
 #lightbox .prev { left: 20px; }
 #lightbox .next { right: 20px; }
 
+  #lightbox {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#lightbox.show {
+  display: flex;
+  opacity: 1;
+}
+
 
   </style>
 </head>
