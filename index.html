@@ -129,6 +129,15 @@
   opacity: 1;
 }
 
+#lightbox {
+  display: none;
+}
+.counter {
+  position: absolute;
+  bottom: 25px;
+  color: #ccc;
+  font-size: 14px;
+}
 
   </style>
 </head>
@@ -257,14 +266,17 @@
 </script>
 <div id="lightbox">
   <span class="close">&times;</span>
+  <div class="counter" id="counter"></div>
   <img id="lightbox-img">
   <span class="nav prev">&#10094;</span>
   <span class="nav next">&#10095;</span>
 </div>
+
 <script>
   const images = document.querySelectorAll(".gallery img");
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightbox-img");
+  const counter = document.getElementById("counter");
   let currentIndex = 0;
 
   images.forEach((img, index) => {
@@ -275,42 +287,68 @@
   });
 
   function openLightbox() {
-    lightbox.style.display = "flex";
+    lightbox.classList.add("show");
     lightboxImg.src = images[currentIndex].src;
+    updateCounter();
   }
 
   function closeLightbox() {
-    lightbox.style.display = "none";
+    lightbox.classList.remove("show");
+    setTimeout(() => {
+      lightbox.style.display = "none";
+    }, 300);
   }
 
   function showNext() {
     currentIndex = (currentIndex + 1) % images.length;
     lightboxImg.src = images[currentIndex].src;
+    updateCounter();
   }
 
   function showPrev() {
     currentIndex = (currentIndex - 1 + images.length) % images.length;
     lightboxImg.src = images[currentIndex].src;
+    updateCounter();
+  }
+
+  function updateCounter() {
+    counter.textContent = `${currentIndex + 1} / ${images.length}`;
   }
 
   document.querySelector(".close").onclick = closeLightbox;
   document.querySelector(".next").onclick = showNext;
   document.querySelector(".prev").onclick = showPrev;
 
-  // Close when clicking outside image
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) closeLightbox();
   });
 
-  // Keyboard support
   document.addEventListener("keydown", (e) => {
-    if (lightbox.style.display === "flex") {
+    if (lightbox.classList.contains("show")) {
       if (e.key === "ArrowRight") showNext();
       if (e.key === "ArrowLeft") showPrev();
       if (e.key === "Escape") closeLightbox();
     }
   });
+
+  /* -------- Swipe support (mobile) -------- */
+
+  let startX = 0;
+
+  lightboxImg.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+  });
+
+  lightboxImg.addEventListener("touchend", (e) => {
+    let endX = e.changedTouches[0].clientX;
+    let diff = startX - endX;
+
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? showNext() : showPrev();
+    }
+  });
 </script>
+
 
 </body>
 </html>
