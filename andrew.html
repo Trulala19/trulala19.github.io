@@ -79,6 +79,45 @@
   background-color: #111;
   color: #fff;
 }
+#lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+#lightbox .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+#lightbox .nav {
+  position: absolute;
+  top: 50%;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+  padding: 20px;
+  user-select: none;
+}
+
+#lightbox .prev { left: 20px; }
+#lightbox .next { right: 20px; }
 
   </style>
 </head>
@@ -98,7 +137,7 @@
 
   <div class="gallery">
 
-<a href="andrews-gallery/IMG_0655-1.jpg" target="_blank"><img src="andrews-gallery/IMG_0655-1.jpg"></a>    
+<img src="gallery/IMG_0655-1.jpg"> 
 
   </div>
 
@@ -118,6 +157,62 @@
 
     if (!menu.contains(event.target) && !button.contains(event.target)) {
       menu.style.display = "none";
+    }
+  });
+</script>
+<div id="lightbox">
+  <span class="close">&times;</span>
+  <img id="lightbox-img">
+  <span class="nav prev">&#10094;</span>
+  <span class="nav next">&#10095;</span>
+</div>
+<script>
+  const images = document.querySelectorAll(".gallery img");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  let currentIndex = 0;
+
+  images.forEach((img, index) => {
+    img.addEventListener("click", () => {
+      currentIndex = index;
+      openLightbox();
+    });
+  });
+
+  function openLightbox() {
+    lightbox.style.display = "flex";
+    lightboxImg.src = images[currentIndex].src;
+  }
+
+  function closeLightbox() {
+    lightbox.style.display = "none";
+  }
+
+  function showNext() {
+    currentIndex = (currentIndex + 1) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+  }
+
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+  }
+
+  document.querySelector(".close").onclick = closeLightbox;
+  document.querySelector(".next").onclick = showNext;
+  document.querySelector(".prev").onclick = showPrev;
+
+  // Close when clicking outside image
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  // Keyboard support
+  document.addEventListener("keydown", (e) => {
+    if (lightbox.style.display === "flex") {
+      if (e.key === "ArrowRight") showNext();
+      if (e.key === "ArrowLeft") showPrev();
+      if (e.key === "Escape") closeLightbox();
     }
   });
 </script>
