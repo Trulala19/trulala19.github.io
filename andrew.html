@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Andrew's Photography</title>
+  <title>Igor's Photography</title>
 
   <style>
     body {
@@ -29,11 +29,20 @@
       width: 100%;
       height: auto;
       border-radius: 6px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
+.gallery img:hover {
+  transform: scale(1.08);
+}
 
-    .gallery img:hover {
-      opacity: 0.85;
-    }
+   .gallery img:hover {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+.gallery img {
+  overflow: hidden;
+}
+
 
     footer {
       text-align: center;
@@ -41,7 +50,7 @@
       color: #888;
       font-size: 14px;
     }
-  .menu {
+   .menu {
   position: fixed;
   top: 15px;
   left: 15px;
@@ -119,7 +128,7 @@
 #lightbox .prev { left: 20px; }
 #lightbox .next { right: 20px; }
 
-#lightbox {
+ #lightbox {
   position: fixed;
   top: 0;
   left: 0;
@@ -139,14 +148,30 @@
   opacity: 1;
 }
 
-
 .counter {
   position: absolute;
   bottom: 25px;
   color: #ccc;
   font-size: 14px;
 }
+.filters {
+  text-align: center;
+  margin-bottom: 10px;
+}
 
+.filters button {
+  background: none;
+  border: 1px solid #444;
+  color: #ccc;
+  padding: 6px 12px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  color: #fff;
+  border-color: #777;
+}
 #welcome {
   position: fixed;
   top: 0;
@@ -230,8 +255,7 @@
     <button onclick="enterGallery('andrew.html')">Andrew’s</button>
   </div>
 </div>
-
- <nav class="menu">
+<nav class="menu">
   <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
 
   <div class="menu-dropdown" id="menuDropdown">
@@ -240,17 +264,117 @@
   </div>
 </nav>
 
+  <h1>Igor's Photography</h1>
+<div class="filters">
+  <button onclick="filterImages('all')">All</button>
+  <button onclick="filterImages('wildlife')">Wildlife</button>
+  <button onclick="filterImages('nature')">Nature</button>
+  <button onclick="filterImages('street')">Street</button>
+</div>
 
-  <h1>Andrew's Photography</h1>
 
-  <div class="gallery">
 
-<img src="gallery/IMG_0655-1.jpg"> 
+<div class="gallery">
 
+<img src="gallery/IMG_0655-1.jpg" data-category="street">
+<img src="gallery/IMG_0658-1.jpg" data-category="street">
+<img src="gallery/IMG_0674-1.jpg" data-category="street">
+<img src="gallery/IMG_0060-1.jpg" data-category="nature">
+<img src="gallery/IMG_0067-1.jpg" data-category="nature">
+<img src="gallery/IMG_0690-1.jpg" data-category="street">
+<img src="gallery/IMG_0693-1.jpg" data-category="street">
+<img src="gallery/tigr_run.jpeg" data-category="wildlife">
+<img src="gallery/IMG_0240.JPG" data-category="wildlife">
+<img src="gallery/IMG_0142.JPG" data-category="nature">
+<img src="gallery/IMG_0137.JPG" data-category="nature">
+<img src="gallery/IMG_0131.JPG" data-category="wildlife">
+<img src="gallery/IMG_0126.JPG" data-category="wildlife">
+<img src="gallery/IMG_0113.JPG" data-category="street">
+<img src="gallery/IMG_0092.JPG" data-category="street">
+<img src="gallery/IMG_0267.JPG" data-category="nature">
+<img src="gallery/IMG_0268.JPG" data-category="wildlife">
+<img src="gallery/IMG_0339.JPG" data-category="wildlife">
+<img src="gallery/IMG_0344.JPG" data-category="wildlife">
+<img src="gallery/IMG_0241.JPG" data-category="wildlife">
+<img src="gallery/IMG_0663.JPG" data-category="wildlife">
+<img src="gallery/IMG_0675.JPG" data-category="street">
+<img src="gallery/IMG_0715.JPG" data-category="nature">
+<img src="gallery/IMG_0811.jpg" data-category="wildlife">
+<img src="gallery/IMG_0809.jpg" data-category="wildlife">
+<img src="gallery/IMG_0807.jpg" data-category="wildlife">
+<img src="gallery/IMG_0806.jpg" data-category="wildlife">
+<img src="gallery/IMG_0805.jpg" data-category="nature">
+<img src="gallery/IMG_0804.jpg" data-category="wildlife">
+<img src="gallery/IMG_0801.jpg" data-category="wildlife">
+<img src="gallery/IMG_0797.jpg" data-category="wildlife">
+<img src="gallery/IMG_0795.jpg" data-category="wildlife">
+<img src="gallery/IMG_0794.jpg" data-category="wildlife">
+<img src="gallery/IMG_0792.jpg" data-category="wildlife">
+<img src="gallery/IMG_0789.jpg" data-category="wildlife">
+<img src="gallery/IMG_0788.jpg" data-category="wildlife">
+<img src="gallery/IMG_0787.jpg" data-category="wildlife">
+<img src="gallery/IMG_0785.jpg" data-category="wildlife">
+<img src="gallery/IMG_0777.jpg" data-category="wildlife">
+<img src="gallery/IMG_0774.jpg" data-category="wildlife">
+<img src="gallery/IMG_0769.jpg" data-category="nature">
+<img src="gallery/IMG_0768.jpg" data-category="wildlife">
+<img src="gallery/IMG_0766.jpg" data-category="wildlife">
+<img src="gallery/IMG_0765.jpg" data-category="wildlife">
+<img src="gallery/IMG_0764.jpg" data-category="wildlife">
+<img src="gallery/IMG_0757.jpg" data-category="wildlife">
+<img src="gallery/IMG_0756.jpg" data-category="wildlife">
+<img src="gallery/IMG_0750.jpg" data-category="wildlife">
+<img src="gallery/IMG_0749.jpg" data-category="wildlife">
+<img src="gallery/IMG_0748.jpg" data-category="wildlife">
+<img src="gallery/IMG_0746.jpg" data-category="wildlife">
+<img src="gallery/IMG_0743.jpg" data-category="nature">
+<img src="gallery/IMG_0742.jpg" data-category="nature">
+<img src="gallery/IMG_0741.jpg" data-category="wildlife">
+<img src="gallery/IMG_0740.jpg" data-category="wildlife">
+<img src="gallery/IMG_0738.jpg" data-category="wildlife">
+<img src="gallery/IMG_0734.jpg" data-category="wildlife">
+<img src="gallery/IMG_0733.jpg" data-category="wildlife">
+<img src="gallery/IMG_0139.jpg" data-category="street">
+<img src="gallery/IMG_0064.jpg" data-category="nature">
+<img src="gallery/IMG_0063.jpg" data-category="nature">
+<img src="gallery/IMG_0061.jpg" data-category="nature">
+<img src="gallery/IMG_0835.jpg" data-category="street">
+<img src="gallery/IMG_0832.jpg" data-category="street">
+<img src="gallery/IMG_0830.jpg" data-category="nature">
+<img src="gallery/IMG_0828.jpg" data-category="nature">
+<img src="gallery/IMG_0826.jpg" data-category="street">
+<img src="gallery/IMG_0824.jpg" data-category="street">
+<img src="gallery/IMG_0822.jpg" data-category="street">
+<img src="gallery/IMG_0821.jpg" data-category="street">
+<img src="gallery/IMG_0815.jpg" data-category="nature">
+<img src="gallery/IMG_0840.jpg" data-category="wildlife">
+<img src="gallery/IMG_0841.jpg" data-category="wildlife">
+<img src="gallery/IMG_0843.jpg" data-category="wildlife">
+<img src="gallery/IMG_0850.jpg" data-category="nature">
+<img src="gallery/IMG_0854.jpg" data-category="nature">
+<img src="gallery/IMG_0860.jpg" data-category="nature">
+<img src="gallery/IMG_0864.jpg" data-category="nature">
+<img src="gallery/IMG_0869.jpg" data-category="wildlife">
+<img src="gallery/IMG_0872.jpg" data-category="wildlife">
+<img src="gallery/IMG_0877.jpg" data-category="wildlife">
+<img src="gallery/IMG_0880.jpg" data-category="nature">
+<img src="gallery/IMG_0881.jpg" data-category="nature">
+<img src="gallery/IMG_0883.jpg" data-category="nature">
+<img src="gallery/IMG_0884.jpg" data-category="nature">
+<img src="gallery/IMG_0908.jpg" data-category="wildlife">
+<img src="gallery/IMG_0909.jpg" data-category="wildlife">
+<img src="gallery/IMG_0915.jpg" data-category="wildlife">
+<img src="gallery/IMG_0919.jpg" data-category="wildlife">
+<img src="gallery/IMG_0920.jpg" data-category="wildlife">
+<img src="gallery/IMG_0921.jpg" data-category="wildlife">
+<img src="gallery/IMG_0922.jpg" data-category="wildlife">
+<img src="gallery/IMG_0926.jpg" data-category="wildlife">
+
+    
   </div>
 
   <footer>
-    © 2025 Andrew
+    © 2025 Igor
   </footer>
 <script>
   function toggleMenu() {
@@ -351,6 +475,21 @@
   });
 </script>
 <script>
+function filterImages(category) {
+  const images = document.querySelectorAll(".gallery img");
+
+  images.forEach(img => {
+    const imgCategories = img.dataset.category;
+
+    if (category === "all" || imgCategories.includes(category)) {
+      img.style.display = "block";
+    } else {
+      img.style.display = "none";
+    }
+  });
+}
+</script>
+<script>
   function enterGallery(page) {
     sessionStorage.setItem("enteredGallery", "true");
 
@@ -370,6 +509,7 @@
     }
   }
 </script>
+
 <button id="backToTop" onclick="scrollToTop()">↑</button>
 <script>
   const backToTop = document.getElementById("backToTop");
@@ -389,8 +529,6 @@
     });
   }
 </script>
-
-
 
 
 </body>
