@@ -462,6 +462,8 @@ function filterImages(category) {
 </script>
 <script>
   function enterGallery(page) {
+    localStorage.setItem("enteredGallery", "true");
+
     const welcome = document.getElementById("welcome");
     welcome.classList.add("hide");
 
@@ -470,6 +472,15 @@ function filterImages(category) {
     }, 800);
   }
 </script>
+<script>
+  if (localStorage.getItem("enteredGallery") === "true") {
+    const welcome = document.getElementById("welcome");
+    if (welcome) {
+      welcome.style.display = "none";
+    }
+  }
+</script>
+
 
 
 
