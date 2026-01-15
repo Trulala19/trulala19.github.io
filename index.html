@@ -29,11 +29,17 @@
       width: 100%;
       height: auto;
       border-radius: 6px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
+.gallery img:hover {
+  transform: scale(1.08);
+}
 
-    .gallery img:hover {
-      opacity: 0.85;
-    }
+   .gallery img:hover {
+  opacity: 0.85;
+  transform: scale(1.08);
+}
+
 
     footer {
       text-align: center;
