@@ -331,7 +331,7 @@
 </script>
 <script>
   function enterGallery(page) {
-    localStorage.setItem("enteredGallery", "true");
+    sessionStorage.setItem("enteredGallery", "true");
 
     const welcome = document.getElementById("welcome");
     welcome.classList.add("hide");
@@ -342,13 +342,14 @@
   }
 </script>
 <script>
-  if (localStorage.getItem("enteredGallery") === "true") {
+  if (sessionStorage.getItem("enteredGallery") === "true") {
     const welcome = document.getElementById("welcome");
     if (welcome) {
       welcome.style.display = "none";
     }
   }
 </script>
+
 
 
 
