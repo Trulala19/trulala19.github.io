@@ -209,6 +209,18 @@
 .welcome-content button:hover {
   opacity: 0.8;
 }
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+#welcome.hide {
+  animation: slideUp 0.8s ease forwards;
+}
 
   </style>
 </head>
@@ -450,9 +462,15 @@ function filterImages(category) {
 </script>
 <script>
   function enterGallery(page) {
-    window.location.href = page;
+    const welcome = document.getElementById("welcome");
+    welcome.classList.add("hide");
+
+    setTimeout(() => {
+      window.location.href = page;
+    }, 800);
   }
 </script>
+
 
 
 </body>
