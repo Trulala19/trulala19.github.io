@@ -242,6 +242,65 @@
   opacity: 1;
 }
 
+.contact {
+  padding: 60px 20px;
+  background: #000;
+}
+
+.contact h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: normal;
+}
+
+.contact-container {
+  display: flex;
+  gap: 40px;
+  max-width: 900px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+
+.contact-form {
+  flex: 1;
+}
+
+.contact-form textarea {
+  width: 100%;
+  height: 140px;
+  padding: 10px;
+  background: #111;
+  color: white;
+  border: 1px solid #444;
+  resize: none;
+}
+
+.contact-form button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: white;
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+
+.contact-links {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-links a {
+  color: white;
+  text-decoration: none;
+  margin: 8px 0;
+  opacity: 0.8;
+}
+
+.contact-links a:hover {
+  opacity: 1;
+}
 
   </style>
 </head>
@@ -372,6 +431,22 @@
 
     
   </div>
+<section class="contact">
+  <h2>Contact Us</h2>
+
+  <div class="contact-container">
+    <div class="contact-form">
+      <textarea id="message" placeholder="Write your message here..."></textarea>
+      <button onclick="sendEmail()">Send</button>
+    </div>
+
+    <div class="contact-links">
+      <a href="https://instagram.com/YOUR_INSTAGRAM" target="_blank">Instagram</a>
+      <a href="https://stock.adobe.com/contributor/YOUR_ID" target="_blank">Adobe Stock</a>
+      <a href="https://www.shutterstock.com/g/YOUR_NAME" target="_blank">Shutterstock</a>
+    </div>
+  </div>
+</section>
 
   <footer>
     © 2025 Igor
@@ -527,6 +602,16 @@ function filterImages(category) {
       top: 0,
       behavior: "smooth"
     });
+  }
+</script>
+<script>
+  function sendEmail() {
+    const text = document.getElementById("message").value;
+    const email = "tigr20200727@gmail.com";
+    const subject = "Photo Gallery Contact";
+    const body = encodeURIComponent(text);
+
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
   }
 </script>
 
