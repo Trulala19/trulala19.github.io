@@ -145,6 +145,24 @@
   color: #ccc;
   font-size: 14px;
 }
+.filters {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.filters button {
+  background: none;
+  border: 1px solid #444;
+  color: #ccc;
+  padding: 6px 12px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  color: #fff;
+  border-color: #777;
+}
 
   </style>
 </head>
@@ -160,8 +178,14 @@
 </nav>
 
   <h1>Igor's Photography</h1>
+<div class="filters">
+  <button onclick="filterImages('all')">All</button>
+  <button onclick="filterImages('wildlife')">Wildlife</button>
+  <button onclick="filterImages('portrait')">Portrait</button>
+  <button onclick="filterImages('street')">Street</button>
+</div>
 
-  <div class="gallery">
+<div class="gallery">
 
 <img src="gallery/IMG_0655-1.jpg">
 <img src="gallery/IMG_0658-1.jpg">
@@ -352,6 +376,21 @@
       diff > 0 ? showNext() : showPrev();
     }
   });
+</script>
+<script>
+function filterImages(category) {
+  const images = document.querySelectorAll(".gallery img");
+
+  images.forEach(img => {
+    const imgCategories = img.dataset.category;
+
+    if (category === "all" || imgCategories.includes(category)) {
+      img.style.display = "block";
+    } else {
+      img.style.display = "none";
+    }
+  });
+}
 </script>
 
 
