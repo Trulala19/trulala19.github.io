@@ -18,28 +18,28 @@
       font-weight: normal;
     }
 
-    .gallery {
+    .andrews-gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 15px;
       padding: 20px;
     }
 
-    .gallery img {
+    .andrews-gallery img {
       width: 100%;
       height: auto;
       border-radius: 6px;
       transition: transform 0.3s ease, opacity 0.3s ease;
     }
-.gallery img:hover {
+.andrews-gallery img:hover {
   transform: scale(1.08);
 }
 
-   .gallery img:hover {
+   .andrews-gallery img:hover {
   opacity: 0.85;
   transform: scale(1.05);
 }
-.gallery img {
+.andrews-gallery img {
   overflow: hidden;
 }
 
@@ -311,7 +311,7 @@
 </div>
 
 <script>
-  const images = document.querySelectorAll(".gallery img");
+  const images = document.querySelectorAll(".andrews-gallery img");
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightbox-img");
   const counter = document.getElementById("counter");
@@ -386,7 +386,7 @@
 </script>
 <script>
 function filterImages(category) {
-  const images = document.querySelectorAll(".gallery img");
+  const images = document.querySelectorAll(".andrews-gallery img");
 
   images.forEach(img => {
     const imgCategories = img.dataset.category;
