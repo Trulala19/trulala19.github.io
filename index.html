@@ -5,6 +5,20 @@
   <title>Igor's Photography</title>
 
   <style>
+body,
+button,
+.menu-btn,
+.filters button,
+#backToTop,
+.menu-dropdown,
+.contact,
+textarea {
+  transition: 
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -337,11 +351,38 @@ body.light .gallery img {
 body.light .menu-dropdown {
   background: white;
 }
+/* ===== LIGHT MODE BUTTON FIXES ===== */
+
 body.light .menu-btn,
-body.light nav button {
-  color: black;
-  border-color: black;
+body.light #backToTop,
+body.light .filters button {
+  background: #fff;
+  color: #000;
+  border-color: #000;
 }
+
+/* Dropdown links */
+body.light .menu-dropdown a {
+  color: #000;
+}
+
+/* Hover states */
+body.light .filters button:hover,
+body.light .menu-btn:hover {
+  background: #eaeaea;
+}
+
+/* Active filter button */
+body.light .filters button.active {
+  background: #000;
+  color: #fff;
+}
+
+body:not(.light) .filters button.active {
+  background: white;
+  color: black;
+}
+
 
 
   </style>
@@ -662,10 +703,26 @@ function filterImages(category) {
 document.addEventListener("contextmenu", e => e.preventDefault());
 </script>
 <script>
-function toggleTheme() {
+  function toggleTheme() {
   document.body.classList.toggle("light");
+
+  if (document.body.classList.contains("light")) {
+    localStorage.setItem("theme", "light");
+  } else {
+    localStorage.setItem("theme", "dark");
+  }
 }
-</script>
+// Apply saved theme on load
+if (localStorage.getItem("theme") === "light") {
+  document.body.classList.add("light");
+}
+// Detect system theme (first visit only)
+if (!localStorage.getItem("theme")) {
+  if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+    document.body.classList.add("light");
+  }
+}
+</script> 
 
 </body>
 </html>
