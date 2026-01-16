@@ -383,6 +383,49 @@ body:not(.light) .filters button.active {
   color: black;
 }
 
+/* ===== THEME SWITCH ===== */
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+  margin-left: 10px;
+}
+
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #666;
+  border-radius: 24px;
+  inset: 0;
+  transition: 0.3s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+input:checked + .slider {
+  background-color: #000;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
 
 
   </style>
@@ -404,7 +447,11 @@ body:not(.light) .filters button.active {
 </div>
 <nav class="menu">
   <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
-  <button onclick="toggleTheme()">Toggle Theme</button>
+ <label class="theme-switch">
+  <input type="checkbox" onclick="toggleTheme()" id="themeToggle">
+  <span class="slider"></span>
+</label>
+
 
   <div class="menu-dropdown" id="menuDropdown">
     <a href="index.html">Igor</a>
@@ -723,6 +770,14 @@ if (!localStorage.getItem("theme")) {
   }
 }
 </script> 
+<script>
+  const themeToggle = document.getElementById("themeToggle");
 
+if (document.body.classList.contains("light")) {
+  themeToggle.checked = true;
+}
+
+</script>
+  
 </body>
 </html>
