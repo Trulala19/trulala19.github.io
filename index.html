@@ -441,6 +441,13 @@ input:checked + .slider:before {
   width: 80px;
   margin-bottom: 20px;
 }
+
+.welcome-logo {
+  width: 140px;
+  max-width: 40vw;
+  margin-bottom: 20px;
+}
+
 body.light #welcome {
   background: #f5f5f5;
   color: #111;
@@ -470,6 +477,25 @@ body.light .contact textarea {
     padding: 10px 18px;
   }
 }
+#contact {
+  position: relative;
+}
+
+.contact-logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 80px;
+  opacity: 0.9;
+}
+@media (max-width: 600px) {
+  .contact-logo {
+    position: static;
+    display: block;
+    margin: 0 auto 15px;
+  }
+}
+
 
 
   </style>
@@ -484,8 +510,8 @@ body.light .contact textarea {
 <body>
   <div id="welcome">
   <div class="welcome-content">
-    <h2>Welcome to the Igors and Andrews photo gallery</h2>
     <img src="logo.png" class="welcome-logo" alt="Gallery Logo">
+    <h2>Welcome to the Igors and Andrews photo gallery</h2>
     <button onclick="enterGallery('index.html')">Igor’s</button>
     <button onclick="enterGallery('andrew.html')">Andrew’s</button>
   </div>
@@ -606,6 +632,7 @@ body.light .contact textarea {
     
   </div>
 <section class="contact">
+  <img src="logo.png" class="contact-logo" alt="Gallery Logo">
   <h2>Contact Us</h2>
 
   <div class="contact-container">
@@ -615,7 +642,6 @@ body.light .contact textarea {
     </div>
 
     <div class="contact-links">
-      <img src="logo.png" class="contact-logo" alt="Logo">
       <a href="https://www.instagram.com/igorlel19/" target="_blank">Instagram</a>
       <a href="https://stock.adobe.com/lt/contributor/213107586/igor?load_type=author&prev_url=detail" target="_blank">Adobe Stock</a>
       <a href="https://www.shutterstock.com/g/Trulala19" target="_blank">Shutterstock</a>
