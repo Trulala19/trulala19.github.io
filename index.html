@@ -426,6 +426,36 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(22px);
 }
+.welcome-logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+.corner-logo {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 50px;
+  z-index: 1000;
+}
+.contact-logo {
+  width: 80px;
+  margin-bottom: 20px;
+}
+body.light #welcome {
+  background: #f5f5f5;
+  color: #111;
+}
+
+body.light .contact {
+  background: #f5f5f5;
+  color: #111;
+}
+
+body.light .contact textarea {
+  background: #fff;
+  color: #000;
+  border-color: #ccc;
+}
 
 
   </style>
@@ -440,12 +470,13 @@ input:checked + .slider:before {
   <div id="welcome">
   <div class="welcome-content">
     <h2>Welcome to the Igors and Andrews photo gallery</h2>
-
+    <img src="logo.png" class="welcome-logo" alt="Gallery Logo">
     <button onclick="enterGallery('index.html')">Igor’s</button>
     <button onclick="enterGallery('andrew.html')">Andrew’s</button>
   </div>
 </div>
 <nav class="menu">
+  <img src="logo.png" class="corner-logo" alt="Logo">
   <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
  <label class="theme-switch">
   <input type="checkbox" onclick="toggleTheme()" id="themeToggle">
@@ -569,6 +600,7 @@ input:checked + .slider:before {
     </div>
 
     <div class="contact-links">
+      <img src="logo.png" class="contact-logo" alt="Logo">
       <a href="https://www.instagram.com/igorlel19/" target="_blank">Instagram</a>
       <a href="https://stock.adobe.com/lt/contributor/213107586/igor?load_type=author&prev_url=detail" target="_blank">Adobe Stock</a>
       <a href="https://www.shutterstock.com/g/Trulala19" target="_blank">Shutterstock</a>
@@ -778,6 +810,12 @@ if (document.body.classList.contains("light")) {
 }
 
 </script>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js");
+  }
+</script>
+
   
 </body>
 </html>
