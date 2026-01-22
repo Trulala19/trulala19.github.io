@@ -769,193 +769,275 @@ body.light .contact textarea {
     © 2025 Igor
   </footer>
 <script>
-/* ================= MENU ================= */
-const menuBtn = document.querySelector('.menu-btn');
-const menu = document.getElementById('menuDropdown');
-const submenuToggle = document.querySelector('.submenu-toggle');
-const submenu = document.querySelector('.submenu');
+  function toggleMenu() {
+    const menu = document.getElementById("menuDropdown");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  }
 
-menuBtn.onclick = (e) => {
-  e.stopPropagation();
-  menu.classList.toggle('open');
-};
+  // Close menu when clicking outside
+  document.addEventListener("click", function (event) {
+    const menu = document.getElementById("menuDropdown");
+    const button = document.querySelector(".menu-btn");
 
-submenuToggle?.addEventListener('click', e => {
-  e.stopPropagation();
-  submenu.classList.toggle('open');
-});
-
-document.addEventListener('click', () => {
-  menu.classList.remove('open');
-  submenu.classList.remove('open');
-});
-
-/* ================= LIGHTBOX ================= */
-const images = document.querySelectorAll('.gallery img');
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-const counter = document.getElementById('counter');
-let currentIndex = 0;
-
-images.forEach((img, i) => {
-  img.addEventListener('click', () => {
-    currentIndex = i;
-    openLightbox();
+    if (!menu.contains(event.target) && !button.contains(event.target)) {
+      menu.style.display = "none";
+    }
   });
-});
+</script>
+<div id="lightbox">
+  <span class="close">&times;</span>
+  <div class="counter" id="counter"></div>
+  <img id="lightbox-img">
+  <span class="nav prev">&#10094;</span>
+  <span class="nav next">&#10095;</span>
+</div>
 
-function openLightbox() {
-  lightbox.classList.add('show');
-  updateLightbox();
-}
+<script>
+  const images = document.querySelectorAll(".gallery img");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const counter = document.getElementById("counter");
+  let currentIndex = 0;
 
-function closeLightbox() {
-  lightbox.classList.remove('show');
-}
+  images.forEach((img, index) => {
+    img.addEventListener("click", () => {
+      currentIndex = index;
+      openLightbox();
+    });
+  });
 
-function updateLightbox() {
-  lightboxImg.src = images[currentIndex].src;
-  counter.textContent = `${currentIndex + 1} / ${images.length}`;
-}
-
-function showNext() {
-  currentIndex = (currentIndex + 1) % images.length;
-  updateLightbox();
-}
-
-function showPrev() {
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
-  updateLightbox();
-}
-
-document.querySelector('.close').onclick = closeLightbox;
-document.querySelector('.next').onclick = showNext;
-document.querySelector('.prev').onclick = showPrev;
-
-lightbox.addEventListener('click', e => {
-  if (e.target === lightbox) closeLightbox();
-});
-
-/* ================= KEYBOARD ================= */
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    closeLightbox();
-    menu.classList.remove('open');
-    submenu.classList.remove('open');
+  function openLightbox() {
+    lightbox.classList.add("show");
+    lightboxImg.src = images[currentIndex].src;
+    updateCounter();
   }
-  if (lightbox.classList.contains('show')) {
-    if (e.key === 'ArrowRight') showNext();
-    if (e.key === 'ArrowLeft') showPrev();
+
+  function closeLightbox() {
+  lightbox.classList.remove("show");
+}
+
+
+  function showNext() {
+    currentIndex = (currentIndex + 1) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+    updateCounter();
   }
-});
 
-/* ================= SWIPE ================= */
-let startX = 0;
-lightboxImg.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-lightboxImg.addEventListener('touchend', e => {
-  const diff = startX - e.changedTouches[0].clientX;
-  if (Math.abs(diff) > 50) diff > 0 ? showNext() : showPrev();
-});
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+    updateCounter();
+  }
 
-/* ================= FILTERS ================= */
-const filterButtons = document.querySelectorAll('[data-filter]');
+  function updateCounter() {
+    counter.textContent = `${currentIndex + 1} / ${images.length}`;
+  }
 
-function filterImages(category, btn) {
-  filterButtons.forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelector(".close").onclick = closeLightbox;
+  document.querySelector(".next").onclick = showNext;
+  document.querySelector(".prev").onclick = showPrev;
+
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (lightbox.classList.contains("show")) {
+      if (e.key === "ArrowRight") showNext();
+      if (e.key === "ArrowLeft") showPrev();
+      if (e.key === "Escape") closeLightbox();
+    }
+  });
+
+  /* -------- Swipe support (mobile) -------- */
+
+  let startX = 0;
+
+  lightboxImg.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+  });
+
+  lightboxImg.addEventListener("touchend", (e) => {
+    let endX = e.changedTouches[0].clientX;
+    let diff = startX - endX;
+
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? showNext() : showPrev();
+    }
+  });
+</script>
+<script>
+function filterImages(category) {
+  const images = document.querySelectorAll(".gallery img");
+  const buttons = document.querySelectorAll(".filters button");
+
+  buttons.forEach(btn => btn.classList.remove("active"));
+  event.target.classList.add("active");
 
   images.forEach(img => {
-    img.style.display =
-      category === 'all' || img.dataset.category === category
-        ? 'block'
-        : 'none';
+    if (category === "all" || img.dataset.category === category) {
+      img.style.display = "block";
+    } else {
+      img.style.display = "none";
+    }
+  });
+}
+</script>
+
+<script>
+  function enterGallery(page) {
+    sessionStorage.setItem("enteredGallery", "true");
+
+    const welcome = document.getElementById("welcome");
+    welcome.classList.add("hide");
+
+    setTimeout(() => {
+      window.location.href = page;
+    }, 800);
+  }
+</script>
+<script>
+  if (sessionStorage.getItem("enteredGallery") === "true") {
+    const welcome = document.getElementById("welcome");
+    if (welcome) {
+      welcome.style.display = "none";
+    }
+  }
+</script>
+
+<button id="backToTop" onclick="scrollToTop()">↑</button>
+<script>
+  const backToTop = document.getElementById("backToTop");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      backToTop.style.display = "block";
+    } else {
+      backToTop.style.display = "none";
+    }
   });
 
-  localStorage.setItem('activeFilter', category);
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+</script>
+<script>
+  function sendEmail() {
+    const text = document.getElementById("message").value;
+    const email = "tigr20200727@gmail.com";
+    const subject = "Photo Gallery Contact";
+    const body = encodeURIComponent(text);
+
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+  }
+</script>
+
+<script>
+document.addEventListener("contextmenu", e => e.preventDefault());
+</script>
+<script>
+  function toggleTheme() {
+  document.body.classList.toggle("light");
+
+  if (document.body.classList.contains("light")) {
+    localStorage.setItem("theme", "light");
+  } else {
+    localStorage.setItem("theme", "dark");
+  }
+}
+// Apply saved theme on load
+if (localStorage.getItem("theme") === "light") {
+  document.body.classList.add("light");
+}
+// Detect system theme (first visit only)
+if (!localStorage.getItem("theme")) {
+  if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+    document.body.classList.add("light");
+  }
+}
+</script> 
+<script>
+  const themeToggle = document.getElementById("themeToggle");
+
+if (document.body.classList.contains("light")) {
+  themeToggle.checked = true;
 }
 
-filterButtons.forEach(btn => {
-  btn.onclick = () => filterImages(btn.dataset.filter, btn);
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js");
+  }
+</script>
+<script>
+  document.querySelectorAll('.gallery img').forEach(img => {
+  img.addEventListener('load', () => {
+    img.classList.add('loaded');
+  });
 });
+</script>
+  <script>
+    document.querySelector('.submenu-toggle').onclick = () => {
+  document.querySelector('.menu-section').classList.toggle('active');
+};
+  </script>
+  <script>
+    document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.body.classList.remove('menu-open');
+    document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
 
-const savedFilter = localStorage.getItem('activeFilter');
-if (savedFilter) {
-  document.querySelector(`[data-filter="${savedFilter}"]`)?.click();
-}
-
-/* ================= IMAGE BLUR LOAD ================= */
-images.forEach(img => {
-  if (img.complete) img.classList.add('loaded');
-  img.addEventListener('load', () => img.classList.add('loaded'));
+    if (typeof closeLightbox === "function") {
+      closeLightbox();
+    }
+  }
 });
-
-/* ================= BACK TO TOP ================= */
-const backToTop = document.getElementById('backToTop');
-window.addEventListener('scroll', () => {
-  backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
-});
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-/* ================= EMAIL ================= */
-function sendEmail() {
-  const msg = document.getElementById('message').value;
-  window.location.href =
-    `mailto:tigr20200727@gmail.com?subject=Photo Gallery Contact&body=${encodeURIComponent(msg)}`;
-}
-
-/* ================= THEME ================= */
-const themeToggle = document.getElementById('themeToggle');
-
-function setTheme(mode) {
-  document.body.classList.toggle('light', mode === 'light');
-  localStorage.setItem('theme', mode);
-  themeToggle.checked = mode === 'light';
-}
-
-themeToggle.onchange = () =>
-  setTheme(themeToggle.checked ? 'light' : 'dark');
-
-setTheme(
-  localStorage.getItem('theme') ||
-  (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
-);
-
-/* ================= INSTALL APP ================= */
-let deferredPrompt;
-const installBtn = document.getElementById('installApp');
+  </script>
+  <script>
+    let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   deferredPrompt = e;
-  installBtn.style.display = 'block';
+  document.getElementById('installApp').style.display = 'block';
 });
 
-installBtn.onclick = async () => {
-  if (!deferredPrompt) return;
+document.getElementById('installApp').onclick = async () => {
   deferredPrompt.prompt();
-  deferredPrompt = null;
 };
 
-/* ================= SERVICE WORKER ================= */
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
+  </script>
+<script>
+  const imgs = document.querySelectorAll('.gallery img');
+const today = new Date().toDateString();
+const saved = localStorage.getItem('photoOfDay');
+
+let index;
+if (saved && JSON.parse(saved).date === today) {
+  index = JSON.parse(saved).index;
+} else {
+  index = Math.floor(Math.random() * imgs.length);
+  localStorage.setItem('photoOfDay', JSON.stringify({ date: today, index }));
 }
 
-/* ================= PHOTO OF THE DAY ================= */
-const today = new Date().toDateString();
-const saved = JSON.parse(localStorage.getItem('photoOfDay') || '{}');
+imgs[index].classList.add('photo-day');
 
-let index = saved.date === today
-  ? saved.index
-  : Math.floor(Math.random() * images.length);
-
-localStorage.setItem('photoOfDay', JSON.stringify({ date: today, index }));
-images[index]?.classList.add('photo-day');
-
-/* ================= DISABLE RIGHT CLICK ================= */
-document.addEventListener('contextmenu', e => e.preventDefault());
+</script>
+<script>
+document.querySelector('.submenu-toggle').addEventListener('click', () => {
+  document.querySelector('.submenu').classList.toggle('open');
+});
+</script>
+<script>
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.getElementById('menuDropdown')?.classList.remove('open');
+    document.querySelector('.submenu')?.classList.remove('open');
+  }
+});
 </script>
 
 
