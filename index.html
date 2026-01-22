@@ -68,14 +68,15 @@ textarea {
   position: fixed;
   top: 15px;
   left: 15px;
-  z-index: 3000;
+  z-index: 1000;
 }
 
 .menu-btn {
   background: none;
   border: 1px solid #555;
-  color: white;
-  padding: 8px 14px;
+  color: #fff;
+  font-size: 15px;
+  padding: 6px 12px;
   cursor: pointer;
 }
 
@@ -83,35 +84,24 @@ textarea {
   display: none;
   position: absolute;
   top: 45px;
-  background: black;
+  left: 0;
+  background-color: #000;
   border: 1px solid #333;
-  min-width: 180px;
+  min-width: 160px;
+  z-index: 1001;
 }
-
-.menu-dropdown.open { display:block; }
-
-.menu-dropdown a,
-.submenu-toggle,
-.submenu button {
+.menu-dropdown a {
   display: block;
-  width: 100%;
-  background: none;
-  border: none;
-  color: #ccc;
   padding: 12px;
-  cursor: pointer;
-  text-align: left;
+  color: #aaa;
+  text-decoration: none;
+  text-align: center;
 }
 
-.menu-dropdown a:hover,
-.submenu button:hover {
-  background:#111;
-  color:white;
+.menu-dropdown a:hover {
+  background-color: #111;
+  color: #fff;
 }
-
-.menu-section { border-top:1px solid #333; }
-.submenu { display:none; }
-.submenu.open { display:block; }
 #lightbox {
   position: fixed;
   top: 0;
@@ -325,6 +315,11 @@ textarea {
 .contact-links a:hover {
   opacity: 1;
 }
+@media (max-width: 768px) {
+  .menu-btn {
+    font-size: 18px;
+    padding: 10px 16px;
+  }
 
   h1 {
     font-size: 22px;
@@ -505,6 +500,35 @@ body.light .contact textarea {
     margin: 0 auto 15px;
   }
 }
+.gallery img {
+  background: #2b2b2b;
+  min-height: 180px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.gallery img.loaded {
+  opacity: 1;
+}
+
+.submenu {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.menu-section.active .submenu {
+  display: flex;
+}
+.submenu {
+  display: none;
+  flex-direction: column;
+}
+
+.submenu.open {
+  display: flex;
+}
 
 .photo-day {
   outline: 3px solid white;
@@ -541,26 +565,27 @@ body.light .contact textarea {
   </div>
 </div>
 <nav class="menu">
-  <button class="menu-btn" id="menuBtn">☰ Menu</button>
-  <label class="theme-switch">
-    <input type="checkbox" id="themeToggle">
-    <span class="slider"></span>
-  </label>
+  <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+ <label class="theme-switch">
+  <input type="checkbox" onclick="toggleTheme()" id="themeToggle">
+  <span class="slider"></span>
+</label>
+
 
   <div class="menu-dropdown" id="menuDropdown">
     <a href="index.html">Igor</a>
     <a href="andrew.html">Andrew</a>
-
-    <div class="menu-section">
-      <button class="submenu-toggle">Filters ▾</button>
-      <div class="submenu">
-        <button onclick="filterImages('all')">All</button>
-        <button onclick="filterImages('wildlife')">Wildlife</button>
-        <button onclick="filterImages('nature')">Nature</button>
-        <button onclick="filterImages('street')">Street</button>
-      </div>
-    </div>
   </div>
+  <div class="menu-section">
+  <button class="submenu-toggle">Filters ▾</button>
+  <div class="submenu">
+    <button onclick="filterImages('all')">All</button>
+    <button onclick="filterImages('wildlife')">Wildlife</button>
+    <button onclick="filterImages('nature')">Nature</button>
+    <button onclick="filterImages('street')">Street</button>
+  </div>
+</div>
+
 </nav>
 
   <h1>Igor's Photography</h1>
@@ -703,6 +728,7 @@ body.light .contact textarea {
       <a href="https://stock.adobe.com/lt/contributor/213107586/igor?load_type=author&prev_url=detail" target="_blank">Adobe Stock</a>
       <a href="https://www.shutterstock.com/g/Trulala19" target="_blank">Shutterstock</a>
     </div>
+    <button id="installApp" style="display:none;">Install App</button>
   </div>
 </section>
 
@@ -710,16 +736,20 @@ body.light .contact textarea {
     © 2025 Igor
   </footer>
 <script>
-  menuBtn.onclick = () => menuDropdown.classList.toggle("open");
-document.addEventListener("click",e=>{
- if(!menuBtn.contains(e.target)&&!menuDropdown.contains(e.target))
- menuDropdown.classList.remove("open");
-});
+  function toggleMenu() {
+    const menu = document.getElementById("menuDropdown");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  }
 
-/* SUBMENU */
-document.querySelector(".submenu-toggle").onclick=()=>{
- document.querySelector(".submenu").classList.toggle("open");
-};
+  // Close menu when clicking outside
+  document.addEventListener("click", function (event) {
+    const menu = document.getElementById("menuDropdown");
+    const button = document.querySelector(".menu-btn");
+
+    if (!menu.contains(event.target) && !button.contains(event.target)) {
+      menu.style.display = "none";
+    }
+  });
 </script>
 <div id="lightbox">
   <span class="close">&times;</span>
@@ -804,12 +834,20 @@ document.querySelector(".submenu-toggle").onclick=()=>{
   });
 </script>
 <script>
-/* FILTER */
-function filterImages(cat){
- document.querySelectorAll(".gallery img").forEach(img=>{
-   img.style.display = cat==="all"||img.dataset.category===cat?"block":"none";
- });
- menuDropdown.classList.remove("open");
+function filterImages(category) {
+  const images = document.querySelectorAll(".gallery img");
+  const buttons = document.querySelectorAll(".filters button");
+
+  buttons.forEach(btn => btn.classList.remove("active"));
+  event.target.classList.add("active");
+
+  images.forEach(img => {
+    if (category === "all" || img.dataset.category === category) {
+      img.style.display = "block";
+    } else {
+      img.style.display = "none";
+    }
+  });
 }
 </script>
 
@@ -901,7 +939,18 @@ if (document.body.classList.contains("light")) {
     navigator.serviceWorker.register("sw.js");
   }
 </script>
- 
+<script>
+  document.querySelectorAll('.gallery img').forEach(img => {
+  img.addEventListener('load', () => {
+    img.classList.add('loaded');
+  });
+});
+</script>
+  <script>
+    document.querySelector('.submenu-toggle').onclick = () => {
+  document.querySelector('.menu-section').classList.toggle('active');
+};
+  </script>
   <script>
     document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
@@ -913,6 +962,20 @@ if (document.body.classList.contains("light")) {
     }
   }
 });
+  </script>
+  <script>
+    let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installApp').style.display = 'block';
+});
+
+document.getElementById('installApp').onclick = async () => {
+  deferredPrompt.prompt();
+};
+
   </script>
 <script>
   const imgs = document.querySelectorAll('.gallery img');
@@ -930,7 +993,11 @@ if (saved && JSON.parse(saved).date === today) {
 imgs[index].classList.add('photo-day');
 
 </script>
-
+<script>
+document.querySelector('.submenu-toggle').addEventListener('click', () => {
+  document.querySelector('.submenu').classList.toggle('open');
+});
+</script>
 <script>
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
