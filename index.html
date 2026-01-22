@@ -565,7 +565,6 @@ body.light .contact textarea {
   </div>
 </div>
 <nav class="menu">
-<img src="logo.png" class="corner-logo" alt="Logo">
 <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
 <label class="theme-switch"> 
 <input type="checkbox" onclick="toggleTheme()" id="themeToggle"> <span class="slider"></span> 
@@ -722,7 +721,6 @@ body.light .contact textarea {
       <a href="https://stock.adobe.com/lt/contributor/213107586/igor?load_type=author&prev_url=detail" target="_blank">Adobe Stock</a>
       <a href="https://www.shutterstock.com/g/Trulala19" target="_blank">Shutterstock</a>
     </div>
-    <button id="installApp" style="display:none;">Install App</button>
   </div>
 </section>
 
@@ -933,18 +931,7 @@ if (document.body.classList.contains("light")) {
     navigator.serviceWorker.register("sw.js");
   }
 </script>
-<script>
-  document.querySelectorAll('.gallery img').forEach(img => {
-  img.addEventListener('load', () => {
-    img.classList.add('loaded');
-  });
-});
-</script>
-  <script>
-    document.querySelector('.submenu-toggle').onclick = () => {
-  document.querySelector('.menu-section').classList.toggle('active');
-};
-  </script>
+  
   <script>
     document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
@@ -957,20 +944,7 @@ if (document.body.classList.contains("light")) {
   }
 });
   </script>
-  <script>
-    let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  document.getElementById('installApp').style.display = 'block';
-});
-
-document.getElementById('installApp').onclick = async () => {
-  deferredPrompt.prompt();
-};
-
-  </script>
+  
 <script>
   const imgs = document.querySelectorAll('.gallery img');
 const today = new Date().toDateString();
@@ -986,11 +960,6 @@ if (saved && JSON.parse(saved).date === today) {
 
 imgs[index].classList.add('photo-day');
 
-</script>
-<script>
-document.querySelector('.submenu-toggle').addEventListener('click', () => {
-  document.querySelector('.submenu').classList.toggle('open');
-});
 </script>
 <script>
 document.addEventListener('keydown', (e) => {
