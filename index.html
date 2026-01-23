@@ -720,6 +720,78 @@ body.light .contact textarea {
   <footer>
     © 2025 Igor
   </footer>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyDk7QiBrC6gdJ5km3dIPQZkgaQNZn0NGrw",
+  authDomain: "igor-s-gallery.firebaseapp.com",
+  projectId: "igor-s-gallery",
+  storageBucket: "igor-s-gallery.firebasestorage.app",
+  messagingSenderId: "553863586362",
+  appId: "1:553863586362:web:ed2a42c1ffe5da4a8d4b03",
+
+  };
+
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script>
+const messaging = firebase.messaging();
+
+async function requestNotificationPermission() {
+  const permission = await Notification.requestPermission();
+  if (permission === "granted") {
+    const token = await messaging.getToken({
+      vapidKey: "YOUR_VAPID_KEY"
+    });
+    console.log("FCM Token:", token);
+
+    // You SHOULD save this token to Firestore later
+  }
+}
+
+// Call this once (for example after Install App)
+requestNotificationPermission();
+</script>
+<script>
+  importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js");
+
+firebase.initializeApp({
+  apiKey: "AIzaSyDk7QiBrC6gdJ5km3dIPQZkgaQNZn0NGrw",
+  authDomain: "igor-s-gallery.firebaseapp.com",
+  projectId: "igor-s-gallery",
+  storageBucket: "igor-s-gallery.firebasestorage.app",
+  messagingSenderId: "553863586362",
+  appId: "1:553863586362:web:ed2a42c1ffe5da4a8d4b03",
+
+const messaging = firebase.messaging();
+
+messaging.onBackgroundMessage(payload => {
+  self.registration.showNotification(payload.notification.title, {
+    body: payload.notification.body,
+    icon: "/logo.png"
+  });
+});
+
+</script>
+<script> 
+  exports.notifyNewPhoto = functions.storage.object().onFinalize(async object => {
+  if (!object.contentType.startsWith("image/")) return;
+
+  const payload = {
+    notification: {
+      title: "New photo uploaded 📸",
+      body: "Check out the new photo in the gallery!"
+    }
+  };
+
+  await admin.messaging().sendToTopic("gallery", payload);
+});
+
+</script>
+
 <script>
   function toggleMenu() {
     const menu = document.getElementById("menuDropdown");
