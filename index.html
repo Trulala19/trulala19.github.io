@@ -998,9 +998,6 @@ document.body.style.overflow = "hidden";
 function enterGallery(page) {
   const welcome = document.getElementById("welcome");
 
-  // Play hide animation
-  welcome.classList.add("hide");
-
   // Re-enable scrolling
   document.body.style.overflow = "";
 
@@ -1009,16 +1006,6 @@ function enterGallery(page) {
     window.location.href = page;
   }, 800);
 }
-
-// If user already entered gallery, hide welcome screen
-if (sessionStorage.getItem("enteredGallery") === "true") {
-  const welcome = document.getElementById("welcome");
-  if (welcome) {
-    welcome.style.display = "none";
-    document.body.style.overflow = ""; // enable scrolling
-  }
-}
-
 </script>
   
 </body>
