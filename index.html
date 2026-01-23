@@ -187,12 +187,18 @@ textarea {
   border-color: #777;
 }
 #welcome {
-  min-height: 100vh;
+  position: fixed;
+  inset: 0;
   background: url("gallery/IMG_1001.jpg") center / cover no-repeat;
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 40px 20px;
-  overflow-y: auto;
+  z-index: 5000;
+  overflow: hidden;
+}
+body.welcome-open {
+  overflow: hidden;
+  height: 100vh;
 }
 
 
@@ -711,7 +717,10 @@ body.light .contact textarea {
   <footer>
     © 2025 Igor
   </footer>
-  
+  <script>
+  document.body.classList.add("welcome-open");
+</script>
+
 <script>
   function toggleMenu() {
     const menu = document.getElementById("menuDropdown");
@@ -838,25 +847,19 @@ function filterImages(category) {
 }
 </script>
 
-<script>
+<script> 
   function enterGallery(page) {
-    sessionStorage.setItem("enteredGallery", "true");
+  sessionStorage.setItem("enteredGallery", "true");
 
-    const welcome = document.getElementById("welcome");
-    welcome.classList.add("hide");
+  const welcome = document.getElementById("welcome");
+  welcome.classList.add("hide");
 
-    setTimeout(() => {
-      window.location.href = page;
-    }, 800);
-  }
-</script>
-<script>
-  if (sessionStorage.getItem("enteredGallery") === "true") {
-    const welcome = document.getElementById("welcome");
-    if (welcome) {
-      welcome.style.display = "none";
-    }
-  }
+  document.body.classList.remove("welcome-open");
+
+  setTimeout(() => {
+    window.location.href = page;
+  }, 800);
+}
 </script>
 
 <button id="backToTop" onclick="scrollToTop()">↑</button>
