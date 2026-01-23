@@ -535,7 +535,6 @@ body.light .contact textarea {
     <button onclick="enterGallery('index.html')">Igor’s</button>
     <button onclick="enterGallery('andrew.html')">Andrew’s</button>
   </div>
-    
 </div>
 <nav class="menu">
 <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
@@ -725,30 +724,24 @@ body.light .contact textarea {
 </div>
 
 <script>
-const allImages = document.querySelectorAll(".gallery img");
-let visibleImages = [];
+  const images = document.querySelectorAll(".gallery img");
   const lightbox = document.getElementById("lightbox");
   const lightboxImg = document.getElementById("lightbox-img");
   const counter = document.getElementById("counter");
   let currentIndex = 0;
 
-  allImages.forEach(img => {
-  img.addEventListener("click", () => {
-    visibleImages = Array.from(allImages)
-      .filter(i => i.style.display !== "none");
-
-    currentIndex = visibleImages.indexOf(img);
-    openLightbox();
+  images.forEach((img, index) => {
+    img.addEventListener("click", () => {
+      currentIndex = index;
+      openLightbox();
+    });
   });
-});
 
-
- function openLightbox() {
-  lightbox.classList.add("show");
-  lightboxImg.src = visibleImages[currentIndex].src;
-  updateCounter();
-}
-
+  function openLightbox() {
+    lightbox.classList.add("show");
+    lightboxImg.src = images[currentIndex].src;
+    updateCounter();
+  }
 
   function closeLightbox() {
   lightbox.classList.remove("show");
@@ -756,24 +749,20 @@ let visibleImages = [];
 
 
   function showNext() {
-  currentIndex = (currentIndex + 1) % visibleImages.length;
-  lightboxImg.src = visibleImages[currentIndex].src;
-  updateCounter();
-}
-
+    currentIndex = (currentIndex + 1) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+    updateCounter();
+  }
 
   function showPrev() {
-  currentIndex =
-    (currentIndex - 1 + visibleImages.length) % visibleImages.length;
-  lightboxImg.src = visibleImages[currentIndex].src;
-  updateCounter();
-}
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    lightboxImg.src = images[currentIndex].src;
+    updateCounter();
+  }
 
-
- function updateCounter() {
-  counter.textContent = `${currentIndex + 1} / ${visibleImages.length}`;
-}
-
+  function updateCounter() {
+    counter.textContent = `${currentIndex + 1} / ${images.length}`;
+  }
 
   document.querySelector(".close").onclick = closeLightbox;
   document.querySelector(".next").onclick = showNext;
@@ -865,38 +854,6 @@ function filterImages(category) {
       behavior: "smooth"
     });
   }
-  let scale = 1;
-let startDistance = 0;
-
-lightboxImg.addEventListener("touchstart", e => {
-  if (e.touches.length === 2) {
-    startDistance = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
-  }
-});
-
-lightboxImg.addEventListener("touchmove", e => {
-  if (e.touches.length === 2) {
-    const currentDistance = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
-
-    scale *= currentDistance / startDistance;
-    scale = Math.min(Math.max(scale, 1), 4);
-
-    lightboxImg.style.transform = `scale(${scale})`;
-    startDistance = currentDistance;
-  }
-});
-
-lightbox.addEventListener("click", () => {
-  scale = 1;
-  lightboxImg.style.transform = "scale(1)";
-});
-
 </script>
 <script>
   function sendEmail() {
@@ -975,6 +932,14 @@ if (saved && JSON.parse(saved).date === today) {
 
 imgs[index].classList.add('photo-day');
 
+</script>
+<script>
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.getElementById('menuDropdown')?.classList.remove('open');
+    document.querySelector('.submenu')?.classList.remove('open');
+  }
+});
 </script>
 
   
