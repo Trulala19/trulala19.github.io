@@ -187,37 +187,16 @@ textarea {
   border-color: #777;
 }
 #welcome {
-  height: 100vh;
-  background: url("welcome-logo") center / cover no-repeat;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: <img src="gallery/IMG_1001.jpg">;
   display: flex;
-  align-items: center;
   justify-content: center;
-}
-
-}
-welcome-overlay {
-  background: rgba(0,0,0,0.4); /* keeps text readable */
-  padding: 40px;
-  border-radius: 20px;
-  text-align: center;
-}
-
-body.light #welcome .welcome-overlay {
-  background: rgba(255,255,255,0.5);
-}
-
-}
-#welcome {
-  animation: zoomIn 1.2s ease forwards;
-}
-
-@keyframes zoomIn {
-  from {
-    transform: scale(1.05);
-  }
-  to {
-    transform: scale(1);
-  }
+  align-items: center;
+  z-index: 5000;
 }
 
 
@@ -557,12 +536,7 @@ body.light .contact textarea {
     <button onclick="enterGallery('index.html')">Igor’s</button>
     <button onclick="enterGallery('andrew.html')">Andrew’s</button>
   </div>
-    <section id="welcome">
-  <div class="welcome-overlay">
-    <img src="gallery/IMG_1001.jpg" class="welcome-logo">
-  </div>
-</section>
-
+    
 </div>
 <nav class="menu">
 <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
