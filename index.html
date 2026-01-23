@@ -196,17 +196,6 @@ textarea {
   z-index: 5000;
   overflow: hidden;
 }
-    html.welcome-open,
-body.welcome-open {
-  height: 100%;
-  overflow: hidden;
-  overscroll-behavior: none;
-}
-
-body.welcome-open {
-  overflow: hidden;
-  height: 100vh;
-}
 
 
 .welcome-overlay {
@@ -860,8 +849,6 @@ function filterImages(category) {
 
   const welcome = document.getElementById("welcome");
   welcome.classList.add("hide");
-document.body.classList.remove("welcome-open");
-document.documentElement.classList.remove("welcome-open");
 
   document.body.classList.remove("welcome-open");
 
