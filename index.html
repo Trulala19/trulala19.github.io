@@ -187,14 +187,23 @@ textarea {
   border-color: #777;
 }
 #welcome {
-  background: <img src="gallery/IMG_1019.jpg"> center/cover no-repeat;
+  height: 100vh;
+  background: url("welcome-logo") center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 }
-#welcome::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+welcome-overlay {
+  background: rgba(0,0,0,0.4); /* keeps text readable */
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+body.light #welcome .welcome-overlay {
+  background: rgba(255,255,255,0.5);
 }
 
 }
@@ -548,6 +557,12 @@ body.light .contact textarea {
     <button onclick="enterGallery('index.html')">Igor’s</button>
     <button onclick="enterGallery('andrew.html')">Andrew’s</button>
   </div>
+    <section id="welcome">
+  <div class="welcome-overlay">
+    <img src="gallery/IMG_1001.jpg" class="welcome-logo">
+  </div>
+</section>
+
 </div>
 <nav class="menu">
 <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
