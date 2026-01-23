@@ -743,7 +743,7 @@ async function requestNotificationPermission() {
   const permission = await Notification.requestPermission();
   if (permission === "granted") {
     const token = await messaging.getToken({
-      vapidKey: "YOUR_VAPID_KEY"
+      vapidKey: "BHXGjP9-Yw22DmNGAk1fzI3smN5aA7sLIs412ZhKhOEhDOzTvYD8GulL_JYGS7H96SuBZ0p4m-F4ycPi3wUHWhQ"
     });
     console.log("FCM Token:", token);
 
