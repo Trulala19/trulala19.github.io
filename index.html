@@ -186,12 +186,13 @@ textarea {
   color: #fff;
   border-color: #777;
 }
-#welcome{ 
-height: 100vh; 
-background: url("gallery/IMG_1001.jpg") center / cover no-repeat; 
-display: flex; 
-align-items: center; 
-justify-content: center; 
+#welcome {
+  min-height: 100vh;
+  background: url("gallery/IMG_1001.jpg") center / cover no-repeat;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  overflow-y: auto;
 }
 
 
@@ -209,7 +210,8 @@ body.light #welcome .welcome-overlay {
 
 
 .welcome-content {
-  text-align: center;
+  margin: auto;
+  max-width: 600px;
 }
 
 .welcome-content h2 {
