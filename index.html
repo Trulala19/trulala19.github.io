@@ -347,22 +347,6 @@ body.light {
 }
 
 
-.favorite-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  cursor: pointer;
-  background: rgba(0,0,0,0.6);
-  border-radius: 50%;
-  padding: 6px;
-  color: white;
-  user-select: none;
-}
-
-.favorite-btn.active {
-  color: red;
-}
 body.light .gallery img {
   border: 1px solid #ddd;
 }
@@ -694,7 +678,6 @@ body.light .contact textarea {
 <img src="gallery/IMG_0063.jpg" loading="lazy" data-category="nature">
 <img src="gallery/IMG_0061.jpg" loading="lazy" data-category="nature">
 <img src="gallery/IMG_0060-1.jpg" loading="lazy" data-category="nature">
-<span class="favorite-btn">❤️</span>
 
     
   </div>
@@ -961,31 +944,7 @@ document.addEventListener('keydown', (e) => {
 });
 </script>
 
-  <script>
-const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-document.querySelectorAll(".gallery-item").forEach((item, index) => {
-  const img = item.querySelector("img");
-  const btn = item.querySelector(".favorite-btn");
-  const id = img.src;
-
-  if (favorites.includes(id)) btn.classList.add("active");
-
-  btn.onclick = () => {
-    btn.classList.toggle("active");
-
-    if (btn.classList.contains("active")) {
-      favorites.push(id);
-    } else {
-      const i = favorites.indexOf(id);
-      if (i > -1) favorites.splice(i, 1);
-    }
-
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  };
-});
-</script>
-
+ 
   
 </body>
 </html>
