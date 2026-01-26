@@ -56,6 +56,13 @@ textarea {
 .gallery img {
   overflow: hidden;
 }
+img {
+  background: #222;
+  animation: pulse 1.2s infinite;
+}
+img.loaded {
+  animation: none;
+}
 
 
     footer {
@@ -343,7 +350,27 @@ body.light {
   background: #f5f5f5;
   color: #111;
 }
+.gallery-item {
+  position: relative;
+}
 
+
+.favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  background: rgba(0,0,0,0.6);
+  border-radius: 50%;
+  padding: 6px;
+  color: white;
+  user-select: none;
+}
+
+.favorite-btn.active {
+  color: red;
+}
 body.light .gallery img {
   border: 1px solid #ddd;
 }
@@ -516,13 +543,6 @@ body.light .contact textarea {
   color: white;
   padding: 4px 8px;
   font-size: 12px;
-}
-img {
-  background: #222;
-  animation: pulse 1.2s infinite;
-}
-img.loaded {
-  animation: none;
 }
 
   </style>
@@ -946,6 +966,31 @@ document.addEventListener('keydown', (e) => {
     document.getElementById('menuDropdown')?.classList.remove('open');
     document.querySelector('.submenu')?.classList.remove('open');
   }
+});
+</script>
+
+  <script>
+const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+document.querySelectorAll(".gallery-item").forEach((item, index) => {
+  const img = item.querySelector("img");
+  const btn = item.querySelector(".favorite-btn");
+  const id = img.src;
+
+  if (favorites.includes(id)) btn.classList.add("active");
+
+  btn.onclick = () => {
+    btn.classList.toggle("active");
+
+    if (btn.classList.contains("active")) {
+      favorites.push(id);
+    } else {
+      const i = favorites.indexOf(id);
+      if (i > -1) favorites.splice(i, 1);
+    }
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  };
 });
 </script>
 
