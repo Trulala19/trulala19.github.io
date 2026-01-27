@@ -189,7 +189,7 @@ body.light #themeBtn {
 
 .filters button {
   background: none;
-  border: 1px solid #444;
+  border: 6px solid #444;
   color: #ccc;
   padding: 6px 12px;
   margin: 5px;
@@ -413,6 +413,10 @@ body:not(.light) .filters button.active {
   font-size: 18px;
   cursor: pointer;
   transition: 0.25s ease;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
 }
 
 #themeBtn:hover {
@@ -543,24 +547,10 @@ body.light .contact textarea {
 .top-search::placeholder {
   color: #aaa;
 }
-.search-bar {
-  height: 44px;
-  padding: 0 12px;
-  border-radius: 6px; /* sharp */
-  border: 1px solid #555;
-  background: #000;
-  color: #fff;
-  outline: none;
-}
-
 
 
 /* Light mode */
-body.light .top-search {
-  background: white;
-  color: black;
-  border-color: #000;
-}
+
 body.light .search-bar {
   background: #fff;
   color: #000;
