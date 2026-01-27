@@ -386,48 +386,29 @@ body:not(.light) .filters button.active {
   color: black;
 }
 
-/* ===== THEME SWITCH ===== */
-.theme-switch {
-  position: relative;
-  display: inline-block;
-  width: 46px;
-  height: 24px;
+/* ===== THEME BUTTON  ===== */
+#themeBtn {
   margin-left: 10px;
-}
-
-.theme-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid #555;
+  background: #000;
+  color: #fff;
+  font-size: 18px;
   cursor: pointer;
-  background-color: #666;
-  border-radius: 24px;
-  inset: 0;
-  transition: 0.3s;
+  transition: 0.25s ease;
 }
 
-.slider:before {
-  content: "";
-  position: absolute;
-  height: 18px;
-  width: 18px;
-  left: 3px;
-  bottom: 3px;
-  background: white;
-  border-radius: 50%;
-  transition: 0.3s;
+#themeBtn:hover {
+  opacity: 0.8;
 }
 
-input:checked + .slider {
-  background-color: #000;
-}
-
-input:checked + .slider:before {
-  transform: translateX(22px);
+/* Light mode */
+body.light #themeBtn {
+  background: #fff;
+  color: #000;
+  border-color: #000;
 }
 .welcome-logo {
   width: 120px;
@@ -580,10 +561,7 @@ body.light .top-search::placeholder {
 </div>
 <nav class="menu">
 <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
-<label class="theme-switch"> 
-<input type="checkbox" onclick="toggleTheme()" id="themeToggle"> <span class="slider"></span> 
-</label> 
-  
+<button id="themeBtn" onclick="toggleTheme()">🌙</button>
 <div class="menu-dropdown" id="menuDropdown">
   <a href="index.html">Igor</a> 
   <a href="andrew.html">Andrew</a>
@@ -921,31 +899,38 @@ document.addEventListener("contextmenu", e => e.preventDefault());
   function toggleTheme() {
   document.body.classList.toggle("light");
 
+  const btn = document.getElementById("themeBtn");
+
   if (document.body.classList.contains("light")) {
     localStorage.setItem("theme", "light");
+    btn.textContent = "☀"; // Light mode icon
   } else {
     localStorage.setItem("theme", "dark");
+    btn.textContent = "🌙"; // Dark mode icon
   }
 }
-// Apply saved theme on load
-if (localStorage.getItem("theme") === "light") {
-  document.body.classList.add("light");
-}
-// Detect system theme (first visit only)
-if (!localStorage.getItem("theme")) {
-  if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+
+// Apply saved theme on load and set icon
+window.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("themeBtn");
+
+  if (localStorage.getItem("theme") === "light") {
     document.body.classList.add("light");
+    btn.textContent = "☀";
+  } else {
+    btn.textContent = "🌙";
   }
-}
+
+  // Detect system theme for first visit
+  if (!localStorage.getItem("theme")) {
+    if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+      document.body.classList.add("light");
+      btn.textContent = "☀";
+    }
+  }
+});
 </script> 
-<script>
-  const themeToggle = document.getElementById("themeToggle");
 
-if (document.body.classList.contains("light")) {
-  themeToggle.checked = true;
-}
-
-</script>
 <script>
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js");
