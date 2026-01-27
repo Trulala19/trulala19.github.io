@@ -903,7 +903,7 @@ document.addEventListener("contextmenu", e => e.preventDefault());
 
   if (document.body.classList.contains("light")) {
     localStorage.setItem("theme", "light");
-    btn.textContent = "☀"; // Light mode icon
+    btn.textContent = "☀️"; // Light mode icon
   } else {
     localStorage.setItem("theme", "dark");
     btn.textContent = "🌙"; // Dark mode icon
@@ -916,7 +916,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   if (localStorage.getItem("theme") === "light") {
     document.body.classList.add("light");
-    btn.textContent = "☀";
+    btn.textContent = "☀️";
   } else {
     btn.textContent = "🌙";
   }
@@ -925,7 +925,7 @@ window.addEventListener("DOMContentLoaded", () => {
   if (!localStorage.getItem("theme")) {
     if (window.matchMedia("(prefers-color-scheme: light)").matches) {
       document.body.classList.add("light");
-      btn.textContent = "☀";
+      btn.textContent = "☀️";
     }
   }
 });
