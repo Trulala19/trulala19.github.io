@@ -521,6 +521,59 @@ body.light .contact textarea {
   font-size: 12px;
 }
 
+.hashtags {
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.hashtags span {
+  margin-right: 6px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.hashtags span:hover {
+  color: white;
+  text-decoration: underline;
+}
+.top-search {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  padding: 7px 12px;
+  font-size: 14px;
+  background: #000;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 6px;
+  width: 180px;
+  z-index: 1200;
+}
+
+.top-search::placeholder {
+  color: #aaa;
+}
+
+/* Light mode */
+body.light .top-search {
+  background: white;
+  color: black;
+  border-color: #000;
+}
+
+body.light .top-search::placeholder {
+  color: #555;
+}
+
+/* Mobile polish */
+@media (max-width: 600px) {
+  .top-search {
+    width: 140px;
+    font-size: 13px;
+    top: 12px;
+    right: 12px;
+  }
+}
   </style>
   <meta name="description" content="Photography portfolio by Igor and Andrew featuring wildlife, nature, and street photography.">
 <meta name="keywords" content="photography, wildlife photography, street photography, nature photography">
@@ -549,6 +602,11 @@ body.light .contact textarea {
   <a href="index.html">Igor</a> 
   <a href="andrew.html">Andrew</a>
 </div>
+<input
+  type="text"
+  id="searchInput"
+  class="top-search"
+  placeholder="Search photos…">
 </nav>
 
   <h1>Igor's Photography</h1>
@@ -562,7 +620,9 @@ body.light .contact textarea {
 
 <div class="gallery">
 
-<img src="gallery/IMG_1019.jpg" loading="lazy" data-category="nature">
+<img src="gallery/IMG_1019.jpg"
+data-category="nature"
+data-tags="forest,green,trees">
 <img src="gallery/IMG_1012.jpg" loading="lazy" data-category="nature">
 <img src="gallery/IMG_1010.jpg" loading="lazy" data-category="wildlife">
 <img src="gallery/IMG_1002.jpg" loading="lazy" data-category="nature">  
@@ -943,7 +1003,46 @@ document.addEventListener('keydown', (e) => {
   }
 });
 </script>
+<script>
+document.querySelectorAll(".gallery img").forEach(img => {
+  const tags = img.dataset.tags;
+  if (!tags) return;
 
+  const container = document.createElement("div");
+  container.className = "hashtags";
+
+  tags.split(",").forEach(tag => {
+    const span = document.createElement("span");
+    span.textContent = `#${tag.trim()}`;
+    span.onclick = () => filterByTag(tag.trim());
+    container.appendChild(span);
+  });
+
+  img.parentElement.appendChild(container);
+});
+</script>
+<script>
+function filterByTag(tag) {
+  document.querySelectorAll(".gallery img").forEach(img => {
+    const tags = img.dataset.tags || "";
+    img.style.display = tags.includes(tag) ? "block" : "none";
+  });
+}
+</script>
+<script>
+document.getElementById("searchInput").addEventListener("input", e => {
+  const query = e.target.value.toLowerCase();
+
+  document.querySelectorAll(".gallery img").forEach(img => {
+    const text =
+      img.src.toLowerCase() +
+      (img.dataset.category || "") +
+      (img.dataset.tags || "");
+
+    img.style.display = text.includes(query) ? "block" : "none";
+  });
+});
+</script>
  
   
 </body>
