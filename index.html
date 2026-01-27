@@ -502,6 +502,14 @@ body.light .contact textarea {
   font-size: 12px;
 }
 
+* {
+  text-transform: none;
+}
+
+[class*="tag"],
+[class*="hash"] {
+  display: none !important;
+}
 
 .top-search {
   position: fixed;
@@ -520,6 +528,17 @@ body.light .contact textarea {
 .top-search::placeholder {
   color: #aaa;
 }
+.search-bar {
+  height: 44px;
+  padding: 0 12px;
+  border-radius: 6px; /* sharp */
+  border: 1px solid #555;
+  background: #000;
+  color: #fff;
+  outline: none;
+}
+
+
 
 /* Light mode */
 body.light .top-search {
@@ -527,7 +546,11 @@ body.light .top-search {
   color: black;
   border-color: #000;
 }
-
+body.light .search-bar {
+  background: #fff;
+  color: #000;
+  border-color: #000;
+}
 body.light .top-search::placeholder {
   color: #555;
 }
@@ -1012,7 +1035,24 @@ document.getElementById("searchInput").addEventListener("input", e => {
   });
 });
 </script>
- 
+<script>
+  const lazyImages = document.querySelectorAll(".lazy-img");
+
+const imageObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+
+    const img = entry.target;
+    img.src = img.dataset.src;
+    img.classList.remove("lazy-img");
+    observer.unobserve(img);
+  });
+}, {
+  rootMargin: "200px" // loads just before entering screen
+});
+
+lazyImages.forEach(img => imageObserver.observe(img));
+</script>
   
 </body>
 </html>
