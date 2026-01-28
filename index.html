@@ -406,12 +406,14 @@ body:not(.light) .filters button.active {
 
 /* ===== THEME BUTTON  ===== */
 #themeBtn {
+  position: fixed;
+  left: 20px;
   margin-left: 10px;
   width: 42px;
   height: 42px;
   border-radius: 6px;
   border: 1px solid #555;
-  background: #000;
+  background: transparent;
   color: #fff;
   font-size: 18px;
   cursor: pointer;
@@ -427,14 +429,6 @@ body.light #themeBtn {
   background: #fff;
   color: #000;
   border-color: #000;
-}
-.top-controls {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  display: flex;
-  gap: 10px;
-  z-index: 1000;
 }
 
 
