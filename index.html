@@ -70,28 +70,14 @@ textarea {
   z-index: 1000;
 }
 
-/* MENU + THEME BUTTON SHARED STYLE */
+
 .menu-btn,
-#themeBtn {
-width: 44px;
-height: 44px;
-border-radius: 6px; /* sharp, not rounded */
-border: 1px solid #555;
-background: #000;
-color: #fff;
-font-size: 18px;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: background 0.2s, color 0.2s;
-}
-body.light .menu-btn,
-body.light #themeBtn {
-  background: #fff;
-  color: #000;
-  border-color: #000;
-}
+background: none;
+border: 1px solid #555; 
+color: #fff; 
+font-size: 15px; 
+padding: 6px 12px; 
+cursor: pointer; }
 
 .menu-dropdown {
   display: none;
@@ -414,17 +400,10 @@ body:not(.light) .filters button.active {
   font-size: 18px;
   cursor: pointer;
   transition: 0.25s ease;
-  position: relative;
 }
 
 #themeBtn:hover {
   opacity: 0.8;
-}
-#themeBtn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
 }
 
 /* Light mode */
