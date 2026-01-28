@@ -406,7 +406,7 @@ body:not(.light) .filters button.active {
 
 /* ===== THEME BUTTON  ===== */
 #themeBtn {
-  margin-left: 80px;
+  margin-left: 10px;
   width: 42px;
   height: 42px;
   border-radius: 6px;
@@ -428,6 +428,16 @@ body.light #themeBtn {
   color: #000;
   border-color: #000;
 }
+.top-controls {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+}
+
+
 .welcome-logo {
   width: 120px;
   margin-bottom: 20px;
@@ -586,7 +596,8 @@ body.light .top-search::placeholder {
   </div>
 </div>
 <nav class="menu">
-<button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>                    <button id="themeBtn" onclick="toggleTheme()">🌙</button>
+<button class="menu-btn" onclick="toggleMenu()">☰ Menu</button> 
+<button id="themeBtn" onclick="toggleTheme()">🌙</button>
 
 <div class="menu-dropdown" id="menuDropdown">
   <a href="index.html">Igor</a> 
