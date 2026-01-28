@@ -71,12 +71,26 @@ textarea {
 }
 
 .menu-btn {
-  background: none;
-  border: 1px solid #555;
-  color: #fff;
-  font-size: 15px;
-  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 18px;
+  font-size: 16px;
+  font-weight: 500;
+
+  background: transparent;
+  color: white;
+
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 8px;
+
   cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.menu-btn:hover {
+  background: rgba(255,255,255,0.08);
 }
 
 .menu-dropdown {
