@@ -383,6 +383,81 @@ body:not(.light) .filters button.active {
   color: black;
 }
 
+.welcome-logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+.contact-logo {
+  width: 80px;
+  margin-bottom: 20px;
+}
+.contact {
+  position: relative;
+}
+.contact-logo {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 60px;
+  opacity: 0.9;
+}
+
+
+.welcome-logo {
+  width: 140px;
+  max-width: 40vw;
+  margin-bottom: 20px;
+}
+
+body.light #welcome {
+  background: #f5f5f5;
+  color: #111;
+}
+
+body.light .contact {
+  background: #f5f5f5;
+  color: #111;
+}
+
+body.light .contact textarea {
+  background: #fff;
+  color: #000;
+  border-color: #ccc;
+}
+@media (max-width: 600px) {
+  .gallery img {
+    border-radius: 10px;
+  }
+
+  .filters button {
+    padding: 10px 16px;
+    font-size: 16px;
+  }
+
+  .menu-btn {
+    padding: 10px 18px;
+  }
+}
+.contact {
+  position: relative;
+}
+
+.contact-logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 80px;
+  opacity: 0.9;
+}
+@media (max-width: 600px) {
+  .contact-logo {
+    position: static;
+    display: block;
+    margin: 0 auto 15px;
+  }
+}
+
 /* ===== THEME SWITCH ===== */
 .theme-switch {
   position: relative;
@@ -439,6 +514,7 @@ input:checked + .slider:before {
 <body>
   <div id="welcome">
   <div class="welcome-content">
+    <img src="andrews-gallery/logo.png" class="welcome logo" alt="Gallery logo">
     <h2>Welcome to the Igor's and Andrew's photo gallery</h2>
 
     <button onclick="enterGallery('index.html')">Igor’s</button>
@@ -494,7 +570,7 @@ input:checked + .slider:before {
   </div>
 <section class="contact">
   <h2>Contact Andrew</h2>
-
+<img src="andrews-gallery/logo.png" class="welcome logo" alt="Gallery logo">
   <div class="contact-container">
     <div class="contact-form">
       <textarea id="message" placeholder="Write your message here..."></textarea>
